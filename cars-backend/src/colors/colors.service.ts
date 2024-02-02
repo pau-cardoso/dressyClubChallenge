@@ -10,10 +10,9 @@ export class ColorsService {
     @InjectModel('Color') private readonly colorModel: Model<Color>,
   ) {}
 
-  async createColor(createColorDto: CreateColorDto) {
-    const newColor = new this.colorModel(createColorDto);
-    const color = await newColor.save();
-    return color;
+  async createColor(createColorDto: CreateColorDto): Promise<Color> {
+    const createdColor = await this.colorModel.create(createColorDto);
+    return createdColor;
   }
 
   findAll(): Promise<Color[]> {
