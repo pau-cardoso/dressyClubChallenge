@@ -1,5 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import mongoose, { HydratedDocument } from 'mongoose';
+import { Brand } from 'src/brands/schemas/brand.schema';
+import { Color } from 'src/colors/schemas/color.schema';
 
 export type CarDocument = HydratedDocument<Car>;
 
@@ -8,11 +10,11 @@ export class Car {
   @Prop()
   model: string;
 
-  @Prop()
-  brand: string;
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Brand' })
+  brand: Brand;
 
-  @Prop()
-  color: string;
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Color' })
+  color: Color;
 
   @Prop()
   value: number;
