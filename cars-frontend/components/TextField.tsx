@@ -8,6 +8,7 @@ interface TextFieldProps {
   errorMessage?: string;
   inputMode?: InputModeOptions;
   testID?: string;
+  placeholder?: string;
 }
 
 export default function TextField({
@@ -17,6 +18,7 @@ export default function TextField({
   errorMessage,
   inputMode,
   testID,
+  placeholder,
 }: TextFieldProps) {
   return (
     <View style={styles.container}>
@@ -29,6 +31,7 @@ export default function TextField({
         value={value}
         inputMode={inputMode}
         testID={testID}
+        placeholder={placeholder}
       />
       { errorMessage &&
         <Text style={styles.error}>{errorMessage}</Text>

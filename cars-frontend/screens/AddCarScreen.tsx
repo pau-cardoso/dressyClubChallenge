@@ -89,6 +89,7 @@ export default function AddCarScreen({style, navigation, route}) {
       <ScrollView contentContainerStyle={styles.containerForm} style={{width: '100%', height: '100%', flexGrow: 1, flex: 1}}>
         <Text style={styles.title}>Add Car</Text>
         <TextField
+          placeholder='Model'
           label='Model'
           value={model}
           onChangeText={setModel}
@@ -106,18 +107,21 @@ export default function AddCarScreen({style, navigation, route}) {
           value={selectedColor}
         />
         <TextField
+          placeholder='Value'
           label='Value'
           value={value}
           onChangeText={setValue}
           inputMode='numeric'
         />
         <TextField
+          placeholder='Production Cost'
           label='Production Cost'
           value={productionCost}
           onChangeText={setProductionCost}
           inputMode='numeric'
         />
         <TextField
+          placeholder='Transportation Cost'
           label='Transportation Cost'
           value={transportationCost}
           onChangeText={setTransportationCost}
