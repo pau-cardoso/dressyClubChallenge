@@ -5,7 +5,9 @@ import { CreateBrandDto } from './dto/create-brand.dto';
 
 @Controller('brands')
 export class BrandsController {
-  constructor(private readonly brandService: BrandsService) {}
+  constructor(private readonly brandService: BrandsService) {
+    brandService.initializeBrands();
+  }
 
   @Post()
   create(@Body() createBrandDto: CreateBrandDto) {

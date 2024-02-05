@@ -5,7 +5,9 @@ import { CreateColorDto } from './dto/create-color.dto';
 
 @Controller('colors')
 export class ColorsController {
-  constructor(private readonly colorService: ColorsService) {}
+  constructor(private readonly colorService: ColorsService) {
+    colorService.initializeColors();
+  }
 
   @Post()
   create(@Body() createColorDto: CreateColorDto) {

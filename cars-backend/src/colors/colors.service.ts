@@ -18,4 +18,15 @@ export class ColorsService {
   findAll(): Promise<Color[]> {
     return this.colorModel.find().exec();
   }
+
+  async initializeColors() {
+    const count = await this.colorModel.countDocuments();
+    if (count === 0) {
+      await this.colorModel.create({ name: 'Blue' });
+      await this.colorModel.create({ name: 'Red' });
+      await this.colorModel.create({ name: 'Yellow' });
+      await this.colorModel.create({ name: 'Black' });
+      await this.colorModel.create({ name: 'White' });
+    }
+  }
 }

@@ -18,4 +18,15 @@ export class BrandsService {
   findAll(): Promise<Brand[]> {
     return this.brandModel.find().exec();
   }
+
+  async initializeBrands() {
+    const count = await this.brandModel.countDocuments();
+    if (count === 0) {
+      await this.brandModel.create({ name: 'Toyota' });
+      await this.brandModel.create({ name: 'Ford' });
+      await this.brandModel.create({ name: 'Honda' });
+      await this.brandModel.create({ name: 'Chevy' });
+      await this.brandModel.create({ name: 'Volkswagen' });
+    }
+  }
 }
