@@ -31,6 +31,28 @@ You can start the backend server using the following command:
 npm run start
 ```
 
+Note that the database will be empty at first. You will need to create Brand and Color objects for adding a car inside the application. For this you can either use GUI for MongoDB such as MongoDB Compass. Or use the API for creating those objects.
+
+### For creating new brand:
+POST request at http://localhost:3100/brands
+
+**Body format:**
+```
+{
+    "name": "Toyota"
+}
+```
+
+### For creating new color:
+POST request at http://localhost:3100/colors
+
+**Body format:**
+```
+{
+    "name": "Red"
+}
+```
+
 ## Frontend (cars-frontend)
 
 ### Installation
