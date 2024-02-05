@@ -26,6 +26,7 @@ export default function TextField({
         onChangeText={onChangeText}
         value={value}
         inputMode={inputMode}
+        testID='text-input'
       />
       { errorMessage &&
         <Text style={styles.error}>{errorMessage}</Text>
