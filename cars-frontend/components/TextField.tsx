@@ -2,10 +2,10 @@ import React from 'react';
 import { InputModeOptions, StyleSheet, Text, TextInput, View } from 'react-native';
 
 interface TextFieldProps {
-  label: string;
+  label?: string;
   onChangeText: any;
   value: any;
-  errorMessage: string;
+  errorMessage?: string;
   inputMode?: InputModeOptions;
 }
 
@@ -18,14 +18,18 @@ export default function TextField({
 }: TextFieldProps) {
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>{label}</Text>
+      { label &&
+        <Text style={styles.label}>{label}</Text>
+      }
       <TextInput
         style={styles.input}
         onChangeText={onChangeText}
         value={value}
         inputMode={inputMode}
       />
-      <Text style={styles.error}>{errorMessage}</Text>
+      { errorMessage &&
+        <Text style={styles.error}>{errorMessage}</Text>
+      }
     </View>
   );
 }

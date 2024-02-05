@@ -3,11 +3,11 @@ import { StyleSheet, Text, View } from 'react-native';
 import RNPickerSelect, { Item } from 'react-native-picker-select';
 
 interface PickerSelectProps {
-  label: string;
+  label?: string;
   items: Item[];
   onValueChange: (value: any, index: number) => void;
   value: any;
-  errorMessage: string;
+  errorMessage?: string;
 }
 
 export default function PickerSelect({
@@ -19,14 +19,18 @@ export default function PickerSelect({
 }: PickerSelectProps) {
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>{label}</Text>
+      {label &&
+        <Text style={styles.label}>{label}</Text>
+      }
       <RNPickerSelect
         style={pickerSelectStyles}
         items={items}
         onValueChange={onValueChange}
         value={value}
       />
-      <Text style={styles.error}>{errorMessage}</Text>
+      {errorMessage &&
+        <Text style={styles.error}>{errorMessage}</Text>
+      }
     </View>
   );
 }
