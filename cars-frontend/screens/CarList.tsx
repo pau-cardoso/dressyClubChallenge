@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import CarRow from '../components/CarRow';
 import { Car } from '../models/Car';
+import AppButton from '../components/AppButton';
 
 export default function CarList({style, navigation, route}) {
   const [cars, setCars] = useState<Car[]>([]);
@@ -67,35 +68,23 @@ export default function CarList({style, navigation, route}) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>List of Cars</Text>
-      <TouchableOpacity
-        onPress={() => navigation.navigate('AddCar')}
-        style={styles.secondaryBtn}
-      >
-        <Text style={styles.btnText}>Add Car</Text>
-      </TouchableOpacity>
+      <AppButton onPress={() => navigation.navigate('AddCar')}>
+        Add Car
+      </AppButton>
       <View style={styles.tableUpdate}>
         { !isEditing &&
-          <TouchableOpacity
-            onPress={() => setIsEditing(!isEditing)}
-            style={styles.secondaryBtn}
-          >
-            <Text style={styles.btnText}>Update</Text>
-          </TouchableOpacity>
+          <AppButton onPress={() => setIsEditing(!isEditing)}>
+            Update
+          </AppButton>
         }
         { isEditing &&
           <>
-            <TouchableOpacity
-              onPress={handleSaveChanges}
-              style={styles.secondaryBtn}
-            >
-              <Text style={styles.btnText}>Cancel</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={handleSaveChanges}
-              style={styles.secondaryBtn}
-            >
-              <Text style={styles.btnText}>Save Changes</Text>
-            </TouchableOpacity>
+            <AppButton onPress={handleSaveChanges}>
+              Cancel
+            </AppButton>
+            <AppButton onPress={handleSaveChanges}>
+              Save Changes
+            </AppButton>
           </>
         }
       </View>
@@ -156,19 +145,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingVertical: 12,
-  },
-  secondaryBtn: {
-    marginBottom: 16,
-    borderRadius: 8,
-    backgroundColor: '#E3F2FD',
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-  },
-  btnText: {
-    color: '#1976D2',
-    textAlign: 'center',
-    fontWeight: '600',
-    fontSize: 16,
   },
   tableUpdate: {
     display: 'flex',
