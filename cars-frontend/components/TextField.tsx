@@ -7,6 +7,7 @@ interface TextFieldProps {
   value: any;
   errorMessage?: string;
   inputMode?: InputModeOptions;
+  testID?: string;
 }
 
 export default function TextField({
@@ -15,6 +16,7 @@ export default function TextField({
   value,
   errorMessage,
   inputMode,
+  testID,
 }: TextFieldProps) {
   return (
     <View style={styles.container}>
@@ -26,7 +28,7 @@ export default function TextField({
         onChangeText={onChangeText}
         value={value}
         inputMode={inputMode}
-        testID='text-input'
+        testID={testID}
       />
       { errorMessage &&
         <Text style={styles.error}>{errorMessage}</Text>

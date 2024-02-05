@@ -26,7 +26,7 @@ describe('TextField Component', () => {
   });
 
   it('renders input with provided inputMode', () => {
-    const { getByTestId } = render(<TextField onChangeText={() => {}} value="" inputMode="numeric" />);
+    const { getByTestId } = render(<TextField onChangeText={() => {}} value="" inputMode="numeric" testID='text-input' />);
     expect(getByTestId('text-input').props.inputMode).toBe('numeric');
   });
 });

@@ -39,6 +39,7 @@ export default function CarRow({
           {isEditing ?
             <TextField
               value={model}
+              testID='model-input'
               onChangeText={value => {
                 setModel(value);
                 onCarPropertyChange(car._id, 'model', value)
