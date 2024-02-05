@@ -22,7 +22,7 @@ export default function AddCarScreen({style, navigation, route}) {
   const getColors = async () => {
     try {
       const response = await fetch(
-        'http://localhost:3100/colors',
+        'localhost:3100/colors',
       );
       const json = await response.json();
       const colors = json.map((color) => {
@@ -40,7 +40,7 @@ export default function AddCarScreen({style, navigation, route}) {
   const getBrands = async () => {
     try {
       const response = await fetch(
-        'http://localhost:3100/brands',
+        'localhost:3100/brands',
       );
       const json = await response.json();
       const brands = json.map((brand) => {
@@ -57,7 +57,7 @@ export default function AddCarScreen({style, navigation, route}) {
 
   const addCar = async () => {
     try {
-      const response = await fetch(`http://localhost:3100/cars`, {
+      const response = await fetch(`localhost:3100/cars`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -78,8 +78,10 @@ export default function AddCarScreen({style, navigation, route}) {
     } catch (error) {
       console.error(error);
       // TODO: Show error message
+    } finally {
+      navigation.goBack();
+      route.params?.onCarAdded();
     }
-    // TODO: Redirect to cars list
   }
 
   return (

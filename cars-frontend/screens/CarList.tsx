@@ -8,6 +8,7 @@ export default function CarList({style, navigation, route}) {
   const [cars, setCars] = useState<Car[]>([]);
   const [isEditing, setIsEditing] = useState(false);
   const [modifiedCars, setModifiedCars] = useState<string[]>([]);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   const headers: string[] = [
     'Model',
@@ -20,26 +21,26 @@ export default function CarList({style, navigation, route}) {
   ];
 
   useEffect(() => {
+    const getCars = async () => {
+      try {
+        const response = await fetch(
+          'http://localhost:3100/cars',
+        );
+        const json = await response.json();
+        setCars(json);
+      } catch (error) {
+        console.error(error);
+      }
+    };
     getCars();
-  }, []);
+    setIsRefreshing(false);
+  }, [isRefreshing]);
 
   const handleCarPropertyChange = (carId, property, value) => {
     if (!modifiedCars.includes(carId)) {
       modifiedCars.push(carId);
     }
     cars.find((car) => car._id === carId)[property] = value;
-  };
-
-  const getCars = async () => {
-    try {
-      const response = await fetch(
-        'http://localhost:3100/cars',
-      );
-      const json = await response.json();
-      setCars(json);
-    } catch (error) {
-      console.error(error);
-    }
   };
 
   const handleSaveChanges = async () => {
@@ -59,16 +60,24 @@ export default function CarList({style, navigation, route}) {
     } catch (error) {
       console.error(error);
     } finally {
-      getCars();
       setModifiedCars([]);
       setIsEditing(false);
+      setIsRefreshing(true);
     }
+  };
+
+  const navigateToAddCar = () => {
+    navigation.navigate('AddCar', { onCarAdded: handleCarAdded });
+  };
+
+  const handleCarAdded = () => {
+    setIsRefreshing(true);
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>List of Cars</Text>
-      <AppButton onPress={() => navigation.navigate('AddCar')}>
+      <AppButton onPress={navigateToAddCar}>
         Add Car
       </AppButton>
       <View style={styles.tableUpdate}>
@@ -79,7 +88,7 @@ export default function CarList({style, navigation, route}) {
         }
         { isEditing &&
           <>
-            <AppButton onPress={handleSaveChanges}>
+            <AppButton onPress={() => {setIsEditing(false); setIsRefreshing(true);}}>
               Cancel
             </AppButton>
             <AppButton onPress={handleSaveChanges}>
@@ -98,6 +107,7 @@ export default function CarList({style, navigation, route}) {
             ))}
           </View>
           <FlatList
+            ListFooterComponentStyle={{marginBottom: 160}}
             data={cars}
             keyExtractor={(item) => item._id}
             renderItem={({ item, index }) => (
@@ -108,6 +118,9 @@ export default function CarList({style, navigation, route}) {
                 onCarPropertyChange={handleCarPropertyChange}
               />
             )}
+            ListFooterComponent={
+              <View style={{height: 150}} />
+            }
           />
         </View>
       </ScrollView>
@@ -126,6 +139,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     width: '100%',
     height: '100%',
+    flex: 1,
     alignItems: 'center',
     padding: 24,
     backgroundColor: '#fff',

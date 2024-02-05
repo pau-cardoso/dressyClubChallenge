@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { KeyboardAvoidingView, StyleSheet, Text, View } from 'react-native';
 import TextField from './TextField';
 import PickerSelect from './PickerSelect';
 import useFetchOptions from '../hooks/useFetchOptions';
@@ -33,85 +33,87 @@ export default function CarRow({
   }, []);
 
   return (
-    <View style={styles.row}>
-      <View style={styles.col}>
-        {isEditing ?
-          <TextField
-            value={model}
-            onChangeText={value => {
-              setModel(value);
-              onCarPropertyChange(car._id, 'model', value)
-            }}
-          />
-          : <Text style={styles.columnText}>{car.model}</Text>
-        }
+    <KeyboardAvoidingView behavior='height' enabled>
+      <View style={styles.row}>
+        <View style={styles.col}>
+          {isEditing ?
+            <TextField
+              value={model}
+              onChangeText={value => {
+                setModel(value);
+                onCarPropertyChange(car._id, 'model', value)
+              }}
+            />
+            : <Text style={styles.columnText}>{car.model}</Text>
+          }
+        </View>
+        <View style={styles.col}>
+          {isEditing ?
+            <PickerSelect
+              items={brandOptions}
+              value={brand}
+              onValueChange={(value) => {
+                setBrand(value);
+                onCarPropertyChange(car._id, 'brand', value)
+              }}
+            /> :
+            <Text style={styles.columnText}>{car.brand.name}</Text>}
+        </View>
+        <View style={styles.col}>
+          {isEditing ?
+            <PickerSelect
+              items={colorOptions}
+              value={color}
+              onValueChange={(value) => {
+                setColor(value);
+                onCarPropertyChange(car._id, 'color', value);
+              }}
+            /> :
+            <Text style={styles.columnText}>{car.color.name}</Text>}
+        </View>
+        <View style={styles.col}>
+          {isEditing ?
+            <TextField
+              value={String(value)}
+              onChangeText={value => {
+                setValue(value);
+                onCarPropertyChange(car._id, 'value', value);
+              }}
+            /> :
+            <Text style={styles.columnText}>{USDollar.format(car.value)}</Text>}
+        </View>
+        <View style={styles.col}>
+          {isEditing ?
+            <TextField
+              value={String(productionCost)}
+              onChangeText={value => {
+                setProductionCost(value);
+                onCarPropertyChange(car._id, 'production_cost', value);
+              }}
+            /> :
+            <Text style={styles.columnText}>{USDollar.format(car.production_cost)}</Text>}
+        </View>
+        <View style={styles.col}>
+          {isEditing ?
+            <TextField
+              value={String(transportationCost)}
+              onChangeText={value => {
+                setTransportationCost(value);
+                onCarPropertyChange(car._id, 'transportation_cost', value);
+              }}
+            /> :
+            <Text style={styles.columnText}>{USDollar.format(car.transportation_cost)}</Text>}
+        </View>
+        <View style={styles.col}>
+          <Text style={styles.columnText}>{
+            USDollar.format(
+              parseInt(transportationCost)
+              + parseInt(productionCost)
+            )}
+          </Text>
+        </View>
       </View>
-      <View style={styles.col}>
-        {isEditing ?
-          <PickerSelect
-            items={brandOptions}
-            value={brand}
-            onValueChange={(value) => {
-              setBrand(value);
-              onCarPropertyChange(car._id, 'brand', value)
-            }}
-          /> :
-          <Text style={styles.columnText}>{car.brand.name}</Text>}
-      </View>
-      <View style={styles.col}>
-        {isEditing ?
-          <PickerSelect
-            items={colorOptions}
-            value={color}
-            onValueChange={(value) => {
-              setColor(value);
-              onCarPropertyChange(car._id, 'color', value);
-            }}
-          /> :
-          <Text style={styles.columnText}>{car.color.name}</Text>}
-      </View>
-      <View style={styles.col}>
-        {isEditing ?
-          <TextField
-            value={String(value)}
-            onChangeText={value => {
-              setValue(value);
-              onCarPropertyChange(car._id, 'value', value);
-            }}
-          /> :
-          <Text style={styles.columnText}>{USDollar.format(car.value)}</Text>}
-      </View>
-      <View style={styles.col}>
-        {isEditing ?
-          <TextField
-            value={String(productionCost)}
-            onChangeText={value => {
-              setProductionCost(value);
-              onCarPropertyChange(car._id, 'production_cost', value);
-            }}
-          /> :
-          <Text style={styles.columnText}>{USDollar.format(car.production_cost)}</Text>}
-      </View>
-      <View style={styles.col}>
-        {isEditing ?
-          <TextField
-            value={String(transportationCost)}
-            onChangeText={value => {
-              setTransportationCost(value);
-              onCarPropertyChange(car._id, 'transportation_cost', value);
-            }}
-          /> :
-          <Text style={styles.columnText}>{USDollar.format(car.transportation_cost)}</Text>}
-      </View>
-      <View style={styles.col}>
-        <Text style={styles.columnText}>{
-          USDollar.format(
-            parseInt(transportationCost)
-            + parseInt(productionCost)
-          )}
-        </Text>
-      </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
