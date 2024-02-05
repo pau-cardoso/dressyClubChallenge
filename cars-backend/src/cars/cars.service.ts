@@ -17,6 +17,10 @@ export class CarsService {
   }
 
   findAll(): Promise<Car[]> {
-    return this.carModel.find().exec();
+    return this.carModel
+      .find()
+      .populate('brand', 'name')
+      .populate('color', 'name')
+      .exec();
   }
 }
