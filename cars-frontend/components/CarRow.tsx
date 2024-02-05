@@ -26,8 +26,8 @@ export default function CarRow({
   const [value, setValue] = useState(String(car.value));
   const [productionCost, setProductionCost] = useState(String(car.production_cost));
   const [transportationCost, setTransportationCost] = useState(String(car.transportation_cost));
-  const [colorOptions] = useFetchOptions('http://localhost:3100/colors');
-  const [brandOptions] = useFetchOptions('http://localhost:3100/brands');
+  const [colorOptions] = useFetchOptions('http://:3100/colors');
+  const [brandOptions] = useFetchOptions('http://:3100/brands');
 
   useEffect(() => {
   }, []);

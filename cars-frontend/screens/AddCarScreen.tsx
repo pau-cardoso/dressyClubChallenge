@@ -4,23 +4,25 @@ import TextField from '../components/TextField';
 import PickerSelect from '../components/PickerSelect';
 import AppButton from '../components/AppButton';
 import useFetchOptions from '../hooks/useFetchOptions';
+import getApiUrl from '../utils.js';
 
 export default function AddCarScreen({style, navigation, route}) {
+  const apiURL = getApiUrl();
   const [model, setModel] = useState('');
   const [value, setValue] = useState('');
   const [productionCost, setProductionCost] = useState('');
   const [transportationCost, setTransportationCost] = useState('');
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedBrand, setSelectedBrand] = useState(null);
-  const [colorOptions] = useFetchOptions('http://localhost:3100/colors');
-  const [brandOptions] = useFetchOptions('http://localhost:3100/brands');
+  const [colorOptions] = useFetchOptions(`${apiURL}/colors`);
+  const [brandOptions] = useFetchOptions(`${apiURL}/brands`);
 
   useEffect(() => {
   }, []);
 
   const addCar = async () => {
     try {
-      const response = await fetch(`http://localhost:3100/cars`, {
+      const response = await fetch(`${apiURL}/cars`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',

@@ -3,8 +3,10 @@ import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native';
 import CarRow from '../components/CarRow';
 import { Car } from '../models/Car';
 import AppButton from '../components/AppButton';
+import getApiUrl from '../utils.js';
 
 export default function CarList({style, navigation, route}) {
+  const apiURL = getApiUrl();
   const [cars, setCars] = useState<Car[]>([]);
   const [isEditing, setIsEditing] = useState(false);
   const [modifiedCars, setModifiedCars] = useState<string[]>([]);
@@ -24,7 +26,7 @@ export default function CarList({style, navigation, route}) {
     const getCars = async () => {
       try {
         const response = await fetch(
-          'http://localhost:3100/cars',
+          `${apiURL}/cars`,
         );
         const json = await response.json();
         setCars(json);
@@ -48,7 +50,7 @@ export default function CarList({style, navigation, route}) {
       modifiedCars.forEach(async carId => {
         let modifiedCar = cars.find((car) => car._id === carId);
         delete modifiedCar._id;
-        const response = await fetch(`http://localhost:3100/cars/${carId}`, {
+        const response = await fetch(`${apiURL}/cars/${carId}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
