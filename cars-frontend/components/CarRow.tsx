@@ -147,6 +147,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     paddingVertical: 16,
     paddingHorizontal: 4,
+    gap: 8,
   },
   col: {
     display: 'flex',
@@ -154,6 +155,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     textAlign: 'center',
+    minWidth: 125,
   },
   columnText: {
     color: '#5D6B7E',

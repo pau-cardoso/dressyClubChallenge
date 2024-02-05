@@ -86,7 +86,7 @@ export default function AddCarScreen({style, navigation, route}) {
     <ScrollView style={{width: '100%'}} contentContainerStyle={styles.container}>
       <KeyboardAvoidingView style={styles.containerForm} behavior='height' enabled>
         {/* <View style={styles.containerForm}> */}
-          <Text style={styles.title}>Add Car Screen</Text>
+          <Text style={styles.title}>Add Car</Text>
           <TextField
             label='Model'
             value={model}

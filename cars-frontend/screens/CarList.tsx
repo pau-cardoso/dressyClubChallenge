@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native';
 import CarRow from '../components/CarRow';
 import { Car } from '../models/Car';
 import AppButton from '../components/AppButton';
@@ -88,21 +88,29 @@ export default function CarList({style, navigation, route}) {
           </>
         }
       </View>
-      <View style={[styles.row, styles.headerContainer]}>
-        {headers.map((header) => (
-          <View style={styles.col} key={header}>
-            <Text style={styles.header}>{header}</Text>
+      <ScrollView horizontal={true} contentContainerStyle={styles.horizontalScrollView}>
+        <View style={styles.tableContainer}>
+          <View style={[styles.row, styles.headerContainer]}>
+            {headers.map((header) => (
+              <View style={styles.col} key={header}>
+                <Text style={styles.header}>{header}</Text>
+              </View>
+            ))}
           </View>
-        ))}
-      </View>
-      {cars.map((car, index) => (
-        <CarRow
-          isEditing={isEditing}
-          car={car}
-          key={`car-${index}`}
-          onCarPropertyChange={handleCarPropertyChange}
-        />
-      ))}
+          <FlatList
+            data={cars}
+            keyExtractor={(item) => item._id}
+            renderItem={({ item, index }) => (
+              <CarRow
+                isEditing={isEditing}
+                car={item}
+                key={`car-${index}`}
+                onCarPropertyChange={handleCarPropertyChange}
+              />
+            )}
+          />
+        </View>
+      </ScrollView>
     </View>
   );
 }
@@ -127,18 +135,23 @@ const styles = StyleSheet.create({
     color: '#626E81',
     textAlign: 'center',
     fontSize: 16,
+    width: '100%',
+    minWidth: 125,
   },
   headerContainer: {
     backgroundColor: '#EDF4FB',
     borderRadius: 8,
     marginBottom: 8,
     gap: 8,
+    paddingHorizontal: 4,
+    width: '100%',
   },
   row: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    gap: 8,
   },
   col: {
     display: 'flex',
@@ -146,11 +159,20 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingVertical: 12,
+    minWidth: 125,
   },
   tableUpdate: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '100%',
+  },
+  tableContainer: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  horizontalScrollView: {
+    flexGrow: 1,
   },
 });
