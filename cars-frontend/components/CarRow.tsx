@@ -43,7 +43,7 @@ export default function CarRow({
               onCarPropertyChange(car._id, 'model', value)
             }}
           />
-          : <Text>{car.model}</Text>
+          : <Text style={styles.columnText}>{car.model}</Text>
         }
       </View>
       <View style={styles.col}>
@@ -56,7 +56,7 @@ export default function CarRow({
               onCarPropertyChange(car._id, 'brand', value)
             }}
           /> :
-          <Text>{car.brand.name}</Text>}
+          <Text style={styles.columnText}>{car.brand.name}</Text>}
       </View>
       <View style={styles.col}>
         {isEditing ?
@@ -68,7 +68,7 @@ export default function CarRow({
               onCarPropertyChange(car._id, 'color', value);
             }}
           /> :
-          <Text>{car.color.name}</Text>}
+          <Text style={styles.columnText}>{car.color.name}</Text>}
       </View>
       <View style={styles.col}>
         {isEditing ?
@@ -79,7 +79,7 @@ export default function CarRow({
               onCarPropertyChange(car._id, 'value', value);
             }}
           /> :
-          <Text>{USDollar.format(car.value)}</Text>}
+          <Text style={styles.columnText}>{USDollar.format(car.value)}</Text>}
       </View>
       <View style={styles.col}>
         {isEditing ?
@@ -90,7 +90,7 @@ export default function CarRow({
               onCarPropertyChange(car._id, 'production_cost', value);
             }}
           /> :
-          <Text>{USDollar.format(car.production_cost)}</Text>}
+          <Text style={styles.columnText}>{USDollar.format(car.production_cost)}</Text>}
       </View>
       <View style={styles.col}>
         {isEditing ?
@@ -101,10 +101,10 @@ export default function CarRow({
               onCarPropertyChange(car._id, 'transportation_cost', value);
             }}
           /> :
-          <Text>{USDollar.format(car.transportation_cost)}</Text>}
+          <Text style={styles.columnText}>{USDollar.format(car.transportation_cost)}</Text>}
       </View>
       <View style={styles.col}>
-        <Text>{
+        <Text style={styles.columnText}>{
           USDollar.format(
             parseInt(transportationCost)
             + parseInt(productionCost)
@@ -143,13 +143,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    borderBottomColor: '#F5F7F9',
+    borderBottomWidth: 2,
+    paddingVertical: 16,
+    paddingHorizontal: 4,
   },
   col: {
     display: 'flex',
     flex: 1,
     justifyContent: 'space-between',
     alignItems: 'center',
-    borderWidth: 1,
-    paddingVertical: 12,
+    textAlign: 'center',
+  },
+  columnText: {
+    color: '#5D6B7E',
   },
 });

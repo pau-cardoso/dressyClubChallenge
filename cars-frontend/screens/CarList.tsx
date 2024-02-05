@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import CarRow from '../components/CarRow';
 import { Car } from '../models/Car';
 
@@ -66,20 +66,40 @@ export default function CarList({style, navigation, route}) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Car List</Text>
-      <Button
-        title="Add Car"
+      <Text style={styles.title}>List of Cars</Text>
+      <TouchableOpacity
         onPress={() => navigation.navigate('AddCar')}
-      />
-      <Button
-        title="Modify"
-        onPress={() => setIsEditing(!isEditing)}
-      />
-      <Button
-        title="Save Changes"
-        onPress={handleSaveChanges}
-      />
-      <View style={styles.row}>
+        style={styles.secondaryBtn}
+      >
+        <Text style={styles.btnText}>Add Car</Text>
+      </TouchableOpacity>
+      <View style={styles.tableUpdate}>
+        { !isEditing &&
+          <TouchableOpacity
+            onPress={() => setIsEditing(!isEditing)}
+            style={styles.secondaryBtn}
+          >
+            <Text style={styles.btnText}>Update</Text>
+          </TouchableOpacity>
+        }
+        { isEditing &&
+          <>
+            <TouchableOpacity
+              onPress={handleSaveChanges}
+              style={styles.secondaryBtn}
+            >
+              <Text style={styles.btnText}>Cancel</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={handleSaveChanges}
+              style={styles.secondaryBtn}
+            >
+              <Text style={styles.btnText}>Save Changes</Text>
+            </TouchableOpacity>
+          </>
+        }
+      </View>
+      <View style={[styles.row, styles.headerContainer]}>
         {headers.map((header) => (
           <View style={styles.col} key={header}>
             <Text style={styles.header}>{header}</Text>
@@ -103,16 +123,26 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     fontSize: 24,
     fontWeight: 'bold',
+    color: '#1976D2',
   },
   container: {
     display: 'flex',
     width: '100%',
-    justifyContent: 'center',
+    height: '100%',
     alignItems: 'center',
     padding: 24,
+    backgroundColor: '#fff',
   },
   header: {
     fontWeight: '600',
+    color: '#626E81',
+    textAlign: 'center',
+  },
+  headerContainer: {
+    backgroundColor: '#EDF4FB',
+    borderRadius: 8,
+    marginBottom: 8,
+    gap: 8,
   },
   row: {
     display: 'flex',
@@ -125,7 +155,25 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
     alignItems: 'center',
-    borderWidth: 1,
     paddingVertical: 12,
+  },
+  secondaryBtn: {
+    marginBottom: 16,
+    borderRadius: 8,
+    backgroundColor: '#E3F2FD',
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+  },
+  btnText: {
+    color: '#1976D2',
+    textAlign: 'center',
+    fontWeight: '600',
+    fontSize: 16,
+  },
+  tableUpdate: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
   },
 });
