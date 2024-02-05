@@ -28,7 +28,7 @@ export default function PickerSelect({
         onValueChange={onValueChange}
         value={value}
       />
-      {errorMessage &&
+      {errorMessage && value === null &&
         <Text style={styles.error}>{errorMessage}</Text>
       }
     </View>
@@ -50,7 +50,9 @@ const styles = StyleSheet.create({
     color: '#486B9A',
   },
   error: {
+    marginTop: 8,
     marginBottom: 12,
+    color: '#FF0000',
   }
 });
 

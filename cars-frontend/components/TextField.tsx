@@ -33,7 +33,7 @@ export default function TextField({
         testID={testID}
         placeholder={placeholder}
       />
-      { errorMessage &&
+      { errorMessage && value === '' &&
         <Text style={styles.error}>{errorMessage}</Text>
       }
     </View>
@@ -67,6 +67,8 @@ const styles = StyleSheet.create({
     color: '#000',
   },
   error: {
+    marginTop: 8,
     marginBottom: 12,
+    color: '#FF0000',
   }
 });

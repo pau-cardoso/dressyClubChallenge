@@ -1,63 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import { Button, KeyboardAvoidingView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { KeyboardAvoidingView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import TextField from '../components/TextField';
 import PickerSelect from '../components/PickerSelect';
 import AppButton from '../components/AppButton';
+import useFetchOptions from '../hooks/useFetchOptions';
 
 export default function AddCarScreen({style, navigation, route}) {
   const [model, setModel] = useState('');
-  const [value, setValue] = useState();
-  const [productionCost, setProductionCost] = useState();
-  const [transportationCost, setTransportationCost] = useState();
-  const [colorOptions, setColorOptions] = useState([]);
+  const [value, setValue] = useState('');
+  const [productionCost, setProductionCost] = useState('');
+  const [transportationCost, setTransportationCost] = useState('');
   const [selectedColor, setSelectedColor] = useState(null);
-  const [brandOptions, setBrandOptions] = useState([]);
   const [selectedBrand, setSelectedBrand] = useState(null);
+  const [colorOptions] = useFetchOptions('http://localhost:3100/colors');
+  const [brandOptions] = useFetchOptions('http://localhost:3100/brands');
 
   useEffect(() => {
-    getColors();
-    getBrands();
   }, []);
-
-  const getColors = async () => {
-    try {
-      const response = await fetch(
-        'localhost:3100/colors',
-      );
-      const json = await response.json();
-      const colors = json.map((color) => {
-        return {
-          label: color.name,
-          value: color._id,
-        };
-      });
-      setColorOptions(colors);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const getBrands = async () => {
-    try {
-      const response = await fetch(
-        'localhost:3100/brands',
-      );
-      const json = await response.json();
-      const brands = json.map((brand) => {
-        return {
-          label: brand.name,
-          value: brand._id,
-        };
-      });
-      setBrandOptions(brands);
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   const addCar = async () => {
     try {
-      const response = await fetch(`localhost:3100/cars`, {
+      const response = await fetch(`http://localhost:3100/cars`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -77,7 +40,6 @@ export default function AddCarScreen({style, navigation, route}) {
       }
     } catch (error) {
       console.error(error);
-      // TODO: Show error message
     } finally {
       navigation.goBack();
       route.params?.onCarAdded();
@@ -93,18 +55,21 @@ export default function AddCarScreen({style, navigation, route}) {
           label='Model'
           value={model}
           onChangeText={setModel}
+          errorMessage='Model is required'
         />
         <PickerSelect
           label='Brand'
           items={brandOptions}
           onValueChange={(value) => setSelectedBrand(value)}
           value={selectedBrand}
+          errorMessage='Brand is required'
         />
         <PickerSelect
           label='Main Color'
           items={colorOptions}
           onValueChange={(value) => setSelectedColor(value)}
           value={selectedColor}
+          errorMessage='Color is required'
         />
         <TextField
           placeholder='Value'
@@ -112,6 +77,7 @@ export default function AddCarScreen({style, navigation, route}) {
           value={value}
           onChangeText={setValue}
           inputMode='numeric'
+          errorMessage='Value is required'
         />
         <TextField
           placeholder='Production Cost'
@@ -119,6 +85,7 @@ export default function AddCarScreen({style, navigation, route}) {
           value={productionCost}
           onChangeText={setProductionCost}
           inputMode='numeric'
+          errorMessage='Production Cost is required'
         />
         <TextField
           placeholder='Transportation Cost'
@@ -126,6 +93,7 @@ export default function AddCarScreen({style, navigation, route}) {
           value={transportationCost}
           onChangeText={setTransportationCost}
           inputMode='numeric'
+          errorMessage='Transportation Cost is required'
         />
         <View style={{marginBottom: 150}}>
           <AppButton onPress={addCar}>
