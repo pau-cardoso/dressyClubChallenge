@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Car } from './schemas/car.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -22,5 +22,17 @@ export class CarsService {
       .populate('brand', 'name')
       .populate('color', 'name')
       .exec();
+  }
+
+  async updateCar(carId: string, updateCarDto: CreateCarDto): Promise<Car> {
+    const updatedCar = await this.carModel.findByIdAndUpdate(
+      carId,
+      updateCarDto,
+      { new: true },
+    );
+    if (!updatedCar) {
+      throw new NotFoundException(`Car with ID ${carId} not found`);
+    }
+    return updatedCar;
   }
 }
