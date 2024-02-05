@@ -40,12 +40,14 @@ const styles = StyleSheet.create({
     display: 'flex',
     width: '100%',
     flexDirection: 'column',
+    paddingHorizontal: 16,
   },
   label: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: '500',
     marginBottom: 8,
     width: '100%',
+    color: '#486B9A',
   },
   error: {
     marginBottom: 12,
@@ -58,6 +60,8 @@ const pickerSelectStyles = StyleSheet.create({
     padding: 10,
     borderWidth: 1,
     borderRadius: 4,
+    backgroundColor: '#F8FAFD',
+    borderColor: '#F5F7FC',
     color: 'black',
   },
   inputAndroid: {
@@ -65,6 +69,8 @@ const pickerSelectStyles = StyleSheet.create({
     padding: 10,
     borderWidth: 1,
     borderRadius: 8,
+    backgroundColor: '#F8FAFD',
+    borderColor: '#F5F7FC',
     color: 'black',
   },
 });

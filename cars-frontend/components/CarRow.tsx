@@ -157,5 +157,6 @@ const styles = StyleSheet.create({
   },
   columnText: {
     color: '#5D6B7E',
+    fontSize: 16,
   },
 });

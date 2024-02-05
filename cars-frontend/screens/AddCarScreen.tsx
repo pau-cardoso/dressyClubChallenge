@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, KeyboardAvoidingView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import TextField from '../components/TextField';
 import PickerSelect from '../components/PickerSelect';
+import AppButton from '../components/AppButton';
 
 export default function AddCarScreen({style, navigation, route}) {
   const [model, setModel] = useState('');
@@ -82,49 +83,51 @@ export default function AddCarScreen({style, navigation, route}) {
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Add Car Screen</Text>
-      <TextField
-        label='Model'
-        value={model}
-        onChangeText={setModel}
-      />
-      <PickerSelect
-        label='Brand'
-        items={brandOptions}
-        onValueChange={(value) => setSelectedBrand(value)}
-        value={selectedBrand}
-      />
-      <PickerSelect
-        label='Main Color'
-        items={colorOptions}
-        onValueChange={(value) => setSelectedColor(value)}
-        value={selectedColor}
-      />
-      <TextField
-        label='Value'
-        value={value}
-        onChangeText={setValue}
-        inputMode='numeric'
-      />
-      <TextField
-        label='Production Cost'
-        value={productionCost}
-        onChangeText={setProductionCost}
-        inputMode='numeric'
-      />
-      <TextField
-        label='Transportation Cost'
-        value={transportationCost}
-        onChangeText={setTransportationCost}
-        inputMode='numeric'
-      />
-      <Button
-        onPress={addCar}
-        title="Save"
-        color="#841584"
-      />
-    </View>
+    <ScrollView style={{width: '100%'}} contentContainerStyle={styles.container}>
+      <KeyboardAvoidingView style={styles.containerForm} behavior='height' enabled>
+        {/* <View style={styles.containerForm}> */}
+          <Text style={styles.title}>Add Car Screen</Text>
+          <TextField
+            label='Model'
+            value={model}
+            onChangeText={setModel}
+          />
+          <PickerSelect
+            label='Brand'
+            items={brandOptions}
+            onValueChange={(value) => setSelectedBrand(value)}
+            value={selectedBrand}
+          />
+          <PickerSelect
+            label='Main Color'
+            items={colorOptions}
+            onValueChange={(value) => setSelectedColor(value)}
+            value={selectedColor}
+          />
+          <TextField
+            label='Value'
+            value={value}
+            onChangeText={setValue}
+            inputMode='numeric'
+          />
+          <TextField
+            label='Production Cost'
+            value={productionCost}
+            onChangeText={setProductionCost}
+            inputMode='numeric'
+          />
+          <TextField
+            label='Transportation Cost'
+            value={transportationCost}
+            onChangeText={setTransportationCost}
+            inputMode='numeric'
+          />
+          <AppButton onPress={addCar}>
+            Save
+          </AppButton>
+        {/* </View> */}
+      </KeyboardAvoidingView>
+    </ScrollView>
   );
 }
 
@@ -133,13 +136,26 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     fontSize: 24,
     fontWeight: 'bold',
+    color: '#213B64',
   },
   container: {
     display: 'flex',
-    width: '80%',
-    maxWidth: 400,
+    width: '100%',
+    height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#fff',
+    paddingHorizontal: 16,
+    paddingBottom: 200,
+  },
+  containerForm: {
+    display: 'flex',
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
+    gap: 24,
+    maxWidth: 600,
+    marginTop: 48,
   },
   item: {
     marginBottom: 12,

@@ -83,7 +83,7 @@ export default function CarList({style, navigation, route}) {
               Cancel
             </AppButton>
             <AppButton onPress={handleSaveChanges}>
-              Save Changes
+              Save
             </AppButton>
           </>
         }
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#1976D2',
+    color: '#213B64',
   },
   container: {
     display: 'flex',
@@ -126,6 +126,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#626E81',
     textAlign: 'center',
+    fontSize: 16,
   },
   headerContainer: {
     backgroundColor: '#EDF4FB',
